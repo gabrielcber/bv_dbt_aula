@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: northwind
+    database: bv-dbt-treinamento  
+    schema: raw_northwind
+    description: "Essa é a fonte de dados da Northwind."
+    tables:
+      - name: orders
+      - name: order_details
