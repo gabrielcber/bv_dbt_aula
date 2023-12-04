@@ -32,14 +32,23 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   bv_dbt_aula:
+    +persist_docs:
+      relation: true
+      columns: true
+
     01_staging:
       +tags: stg
+      +materialized: ephemeral
 
     02_intermediate:
       +tags: int
+      +materialized: view
 
     03_marts:
       +tags: marts
+      +materialized: table
 
     04_aggregate:
       +tags: aggr
+      +materialized: table
+

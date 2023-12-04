@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_northwind_order_details
+    tags: ['orders'] # Entender por que essa tag não funciona!
+    columns:
+      - name: order_id
+        tests:
+          - relationships:
+              to: ref('stg_northwind_orders')
+              field: order_id
