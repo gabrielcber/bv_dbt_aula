@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: >
+      Essa é a dimensão de clientes.
+    columns:
+        - name: customer_sk
+          description: >
+            Essa é a surrogate key da dimensão de clientes.
+        - name: customer_id
+          description: >
+            Essa é a identificação do cliente.
+        - name: customer_company_name
+          description: >
+            Esse é o nome da empresa do cliente.
+        - name: customer_contact_name
+          description: >
+            Esse é o nome do contato do cliente.
+        - name: customer_contact_title
+          description: >
+            Esse é o título/cargo do contato do cliente.
+        - name: customer_address
+          description: >
+            Esse é o endereço do cliente.
+        - name: customer_city
+          description: >
+            Essa é a cidade do cliente.
+        - name: customer_region
+          description: >
+            Essa é a região do cliente.
+        - name: customer_postal_code
+          description: >
+            Esse é o código postal do cliente.
+        - name: customer_country
+          description: >
+            Esse é o país do cliente.
+        - name: customer_phone
+          description: >
+            Esse é o número do telefone do cliente.
+        - name: customer_fax
+          description: >
+            Esse é o número do fax do cliente.

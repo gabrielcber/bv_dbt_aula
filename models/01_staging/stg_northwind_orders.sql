@@ -14,6 +14,7 @@ with raw_table as (
         , shipRegion as ship_region
         , shipPostalCode as ship_postal_code
         , shipCountry as ship_country
+        , updated_at
 
         -- Campos nulos
         -- , string_field_14

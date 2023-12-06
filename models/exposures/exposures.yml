@@ -1,0 +1,19 @@
+version: 2
+
+exposures:
+
+  - name: comercial
+    label: Painel do Comercial
+    type: dashboard
+    maturity: high
+    url: https://bi.tool/dashboards/1
+    description: >
+      Painel com KPIs do time comercial usando os dados de venda da Northwind.
+
+    depends_on:
+      - ref('fct_orders')
+      - ref('dim_customers')
+
+    owner:
+      name: Jeff Bezos
+      email: jeff@bezos.com
