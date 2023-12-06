@@ -2,8 +2,62 @@ version: 2
 
 models:
   - name: fct_orders
-    description: "Essa é a tabela fato de vendas da Northwind."
+    description: Já falo melhor...
     columns:
+      - name: order_sk
+        description: >
+          Essa é a surrogate key da tabela de vendas
+      - name: customer_fk
+        description: >
+          Essa é a foreign key em relação à dimensão de clientes
       - name: order_id
-        description: "Essa é a coluna de Identificação da Venda"
-
+        description: >
+          Essa é a coluna de Identificação da Venda
+      - name: employee_id
+        description: >
+          Identificação do Funcionário
+      - name: order_date
+        description: >
+          Data da venda
+      - name: required_date
+        description: >
+          Data de requisição de venda
+      - name: shipped_date
+        description: >
+          Data de envio
+      - name: ship_via
+        description: >
+          Método de envio
+      - name: freight
+        description: >
+          Frete
+      - name: ship_name
+        description: >
+          Nome da transportadora
+      - name: ship_address
+        description: >
+          Endereço de envio
+      - name: ship_city
+        description: >
+          Cidade de envio
+      - name: ship_region
+        description: >
+          Região de envio
+      - name: ship_postal_code
+        description: >
+          Código postal de envio
+      - name: ship_country
+        description: >
+          País de envio
+      - name: product_id
+        description: >
+          Identificação do produto
+      - name: unit_price
+        description: >
+          Preço unitário
+      - name: quantity
+        description: >
+          Quantidade vendida
+      - name: discount
+        description: >
+          Percentual de desconto

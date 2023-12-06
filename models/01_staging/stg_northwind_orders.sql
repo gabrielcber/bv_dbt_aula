@@ -14,11 +14,19 @@ with raw_table as (
         , shipRegion as ship_region
         , shipPostalCode as ship_postal_code
         , shipCountry as ship_country
+        , updated_at
+        , row_number() over(partition by orderID order by updated_at desc) as index_dedup 
 
         -- Campos nulos
         -- , string_field_14
     from {{ source('northwind', 'orders') }}
 )
 
+, dedup as (
+    select *
+    from raw_table
+    where index_dedup = 1
+)
+
 select *
-from raw_table
+from dedup

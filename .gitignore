@@ -5,3 +5,5 @@ logs/
 
 credentials/
 venv/
+
+package-lock.yml

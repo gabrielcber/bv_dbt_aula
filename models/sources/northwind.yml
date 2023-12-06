@@ -14,3 +14,4 @@ sources:
               - unique
 
       - name: order_details
+      - name: customers

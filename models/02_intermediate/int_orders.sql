@@ -28,6 +28,7 @@ with orders as (
         , order_details.unit_price
         , order_details.quantity
         , order_details.discount
+        , orders.updated_at
     from order_details
     left join orders on order_details.order_id = orders.order_id
 )

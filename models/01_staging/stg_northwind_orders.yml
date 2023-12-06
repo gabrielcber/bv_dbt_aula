@@ -4,4 +4,3 @@ models:
   - name: stg_northwind_orders
     columns:
       - name: order_id
-
