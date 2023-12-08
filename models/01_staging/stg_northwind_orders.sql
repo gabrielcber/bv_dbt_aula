@@ -1,25 +1,25 @@
 with raw_table as (
     select
-        orderID as order_id
-        , customerID as customer_id
-        , employeeID as employee_id
-        , orderDate as order_date
-        , requiredDate as required_date
-        , shippedDate as shipped_date
-        , shipVia as ship_via
+        order_id
+        , customer_id
+        , employee_id
+        , order_date
+        , required_date
+        , shipped_date
+        , ship_via
         , cast(freight as numeric) as freight
-        , shipName as ship_name
-        , shipAddress as ship_address
-        , shipCity as ship_city
-        , shipRegion as ship_region
-        , shipPostalCode as ship_postal_code
-        , shipCountry as ship_country
+        , ship_name
+        , ship_address
+        , ship_city
+        , ship_region
+        , ship_postal_code
+        , ship_country
         , updated_at
-        , row_number() over(partition by orderID order by updated_at desc) as index_dedup 
+        , row_number() over(partition by order_id order by updated_at desc) as index_dedup 
 
         -- Campos nulos
         -- , string_field_14
-    from {{ source('northwind', 'orders') }}
+    from {{ source('northwind', 'orders_partitioned') }}
 )
 
 , dedup as (

@@ -9,6 +9,23 @@ config-version: 2
 # This setting configures which "profile" dbt uses for this project.
 profile: 'bv_dbt_aula'
 
+vars:
+  today_and_yesterday : [
+    current_date()
+    , date_sub(current_date(), interval 1 day)
+  ]
+  
+  today_and_last_week : [
+    current_date()
+    , date_sub(current_date(), interval 1 day)
+    , date_sub(current_date(), interval 2 day)
+    , date_sub(current_date(), interval 3 day)
+    , date_sub(current_date(), interval 4 day)
+    , date_sub(current_date(), interval 5 day)
+    , date_sub(current_date(), interval 6 day)
+    , date_sub(current_date(), interval 7 day)
+  ]
+
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
 # found in the "models/" directory. You probably won't need to change these!
@@ -18,6 +35,7 @@ test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
+docs-paths: ["docs"]
 
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
@@ -39,16 +57,20 @@ models:
     01_staging:
       +tags: stg
       +materialized: ephemeral
+      +schema: stage
 
     02_intermediate:
       +tags: int
       +materialized: view
+      +schema: stage
 
     03_marts:
       +tags: marts
       +materialized: table
+      +schema: delivery
 
     04_aggregate:
       +tags: aggr
       +materialized: table
+      +schema: delivery
 

@@ -12,6 +12,22 @@ sources:
           - name: orderID
             tests:
               - unique
+      - name: orders_partitioned
+        description: "Essa é a tabela de Vendas da Northwind"
+        columns:
+          - name: orderID
+            tests:
+              - unique
+
 
       - name: order_details
+
       - name: customers
+        freshness:
+          warn_after:
+            count: 1
+            period: hour
+          error_after:
+            count: 12
+            period: hour
+        loaded_at_field: updated_at

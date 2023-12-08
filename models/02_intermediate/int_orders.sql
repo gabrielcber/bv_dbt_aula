@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized = 'incremental'
+        , unique_key = 'order_sk'
+        , on_schema_change = 'fail'
+    )
+}}
+
 with orders as (
     select *
     from {{ ref('stg_northwind_orders') }}
@@ -10,7 +18,8 @@ with orders as (
 
 , joining as (
     select
-        orders.order_id
+        {{ dbt_utils.generate_surrogate_key(['orders.order_id', 'order_details.product_id']) }} as order_sk
+        , orders.order_id
         , orders.customer_id
         , orders.employee_id
         , orders.order_date
@@ -35,3 +44,15 @@ with orders as (
 
 select *
 from joining
+
+{% if is_incremental() %}
+
+    -- this filter will only be applied on an incremental run
+    -- (uses > to include records whose timestamp occurred since the last run of this model)
+    -- where updated_at > (select max(updated_at) from {{ this }}) -- Dinamico
+
+    -- where extract(date from updated_at) = current_date() -- Estático
+
+    where extract(date from updated_at) in ({{ var('today_and_yesterday') | join(',') }}) -- Estático
+
+{% endif %}

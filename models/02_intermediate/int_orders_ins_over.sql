@@ -1,26 +1,32 @@
-{{
+{{ 
     config(
         materialized = 'incremental'
-        , unique_key = 'order_sk'
+        , incremental_strategy = 'insert_overwrite'
+        , partitions = var('today_and_yesterday')
+        , partition_by = {
+            'field': 'updated_at'
+            , 'data_type': 'timestamp'
+            , 'granularity': 'day'
+        }
         , on_schema_change = 'fail'
     )
 }}
 
-with int_orders as (
+with orders as (
     select *
-    from {{ ref('int_orders') }}
+    from {{ ref('stg_northwind_orders') }}
 )
 
-, dim_customers as (
+, order_details as (
     select *
-    from {{ ref('dim_customers') }}
+    from {{ ref('stg_northwind_order_details') }}
 )
 
 , joining as (
     select
-        orders.order_sk
-        , customers.customer_sk as customer_fk
+        {{ dbt_utils.generate_surrogate_key(['orders.order_id', 'order_details.product_id']) }} as order_sk
         , orders.order_id
+        , orders.customer_id
         , orders.employee_id
         , orders.order_date
         , orders.required_date
@@ -33,14 +39,13 @@ with int_orders as (
         , orders.ship_region
         , orders.ship_postal_code
         , orders.ship_country
-        , orders.product_id
-        , orders.unit_price
-        , orders.quantity
-        , orders.discount
+        , order_details.product_id
+        , order_details.unit_price
+        , order_details.quantity
+        , order_details.discount
         , orders.updated_at
-    from int_orders as orders
-    left join dim_customers as customers on
-        orders.customer_id = customers.customer_id
+    from order_details
+    left join orders on order_details.order_id = orders.order_id
 )
 
 select *

@@ -2,11 +2,13 @@ version: 2
 
 models:
   - name: fct_orders
-    description: Já falo melhor...
+    description: '{{ doc("fct_orders_documentation") }}'
     columns:
       - name: order_sk
         description: >
           Essa é a surrogate key da tabela de vendas
+        tests:
+          - unique
       - name: customer_fk
         description: >
           Essa é a foreign key em relação à dimensão de clientes
